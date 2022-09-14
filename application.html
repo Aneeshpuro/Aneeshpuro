@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <center>
+        <div id="home">
+            <h1>HOME PAGE</h1><br><br>
+            <button type="button" class="btn btn-outline-info btn-lg" id="signbtn" style="margin: 0px;">SIGN-UP</button>
+            <button type="button" class="btn btn-outline-warning btn-lg" id="loginbtn">LOGIN</button><br><br>
+        </div>
+        <div id="signupblock" style="display:none;">
+            <label><b>EMAIL:</b><input type="email" placeholder="Enter email" id="emailInp"></label><br><br>
+            <label><b>PASSWORD:</b><input type="password" placeholder="Enter password" id="passInp"></label><br><br>
+
+
+            <button type="button" class="btn btn-outline-success btn-lg" id="signup">sign-up</button><br><br>
+        </div>
+        <div id="loginblock" style="display:none;">
+            <label><b>EMAIL:</b><input type="email" placeholder="Enter email" id="logemailInp"></label><br><br>
+            <label><b>PASSWORD:</b><input type="password" placeholder="Enter password" id="logpassInp"></label><br><br>
+            <button type="button" class="btn btn-outline-success btn-lg" id="log">login</button><br><br>
+
+
+
+        </div>
+    </center>
+
+</body>
+
+</html>
+
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.4/firebase-app.js";
+    import { getDatabase, set, ref } from "https://www.gstatic.com/firebasejs/9.9.4/firebase-database.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.9.4/firebase-auth.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyBd3vQ3HK2pHnjFAIQtppch_bYdX95COoE",
+        authDomain: "cruddb-2e068.firebaseapp.com",
+        databaseURL: "https://cruddb-2e068-default-rtdb.firebaseio.com",
+        projectId: "cruddb-2e068",
+        storageBucket: "cruddb-2e068.appspot.com",
+        messagingSenderId: "263054424599",
+        appId: "1:263054424599:web:cda1011a4031bdd837ba52"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth();
+    signbtn.addEventListener('click', (e) => {
+        document.getElementById('home').style.display = 'none';
+        document.getElementById('signupblock').style.display = 'block';
+
+
+    });
+    loginbtn.addEventListener('click', (e) => {
+        document.getElementById('home').style.display = 'none';
+        document.getElementById('loginblock').style.display = 'block';
+    });
+    signup.addEventListener('click', (e) => {
+        var email = document.getElementById('emailInp').value;
+        var password = document.getElementById('passInp').value;
+
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+
+                const user = userCredential.user;
+                set(ref(database, 'users/' + user.uid), {
+                    email: email,
+                    password: password
+                }).then(() => {
+                    alert("Signup successfully..");
+                }).catch((error) => {
+                    alert(error);
+                });
+
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                alert(errorMessage);
+            });
+
+    });
+    log.addEventListener('click', (e) => {
+        var email = document.getElementById('logemailInp').value;
+        var password = document.getElementById('logpassInp').value;
+
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+
+                const user = userCredential.user;
+                alert("Login successfully..");
+
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                alert(errorMessage);
+            });
+
+    });
+
+</script>

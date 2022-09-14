@@ -1,0 +1,60 @@
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: black;
+}
+
+#home {
+    margin-top: 90px;
+    background-color: dimgray;
+    width: 100%;
+    border: 2px solid black;
+    border-radius: 15px;
+    border: 2px solid black;
+
+}
+
+#signupblock {
+    margin-top: 90px;
+    background-color: dimgray;
+    border-radius: 15px;
+    border: 2px solid black;
+
+}
+
+#emailInp {
+    border: 2px solid black;
+    border-radius: 10px;
+    transition: 2s;
+
+}
+
+
+
+#passInp {
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+#logemailInp {
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+#logpassInp {
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+#loginblock {
+    margin-top: 90px;
+    background-color: dimgray;
+    border-radius: 15px;
+    border: 2px solid black;
+}
+
+#signbtn {
